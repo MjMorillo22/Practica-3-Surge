@@ -21,7 +21,7 @@ jobs:
         run: |
           npm install -g surge
           # Desplegamos la carpeta actual (que contiene los archivos de tu repositorio) a Surge.sh.
-          surge --project ./ --domain TUDOMINIO.surge.sh
+          surge --project ./ --domain mjmorillo22.surge.sh
         # Definimos las variables de entorno para el correo electrónico y token de Surge.sh.
         env:
           # Utilizamos secrets para mantener seguros el correo electrónico y el token de Surge.sh.
