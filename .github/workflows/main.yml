@@ -1,0 +1,30 @@
+name: Deploy to Surge
+
+# Este evento se activará cada vez que hagas push a la rama main.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Clonar el repositorio para obtener los archivos.
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Paso 2: Desplegar los archivos a Surge.sh.
+      - name: Deploy to Surge.sh
+        # Instalamos surge globalmente para poder usarlo en el siguiente paso.
+        run: |
+          npm install -g surge
+          # Desplegamos la carpeta actual (que contiene los archivos de tu repositorio) a Surge.sh.
+          surge --project ./ --domain TUDOMINIO.surge.sh
+        # Definimos las variables de entorno para el correo electrónico y token de Surge.sh.
+        env:
+          # Utilizamos secrets para mantener seguros el correo electrónico y el token de Surge.sh.
+          # Estos valores se definen en la configuración de tu repositorio de GitHub.
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
